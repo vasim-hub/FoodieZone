@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">FoodieZone</string>
+    <string name="title_home">Home</string>
+    <string name="no_internet_description">Please check your internet connection</string>
+    <string name="message_back_button">Please click BACK again to exit</string>
+    <string name="something_went_wrong">Something went wrong, please try again</string>
+    <string name="roboto_medium">sans-serif-medium</string>
+    <string name="roboto_regular">sans-serif</string>
+</resources>

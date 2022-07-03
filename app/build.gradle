@@ -1,0 +1,106 @@
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'androidx.navigation.safeargs.kotlin'
+}
+
+Properties localProperties = new Properties()
+localProperties.load(project.rootProject.file('gradle.properties').newDataInputStream())
+
+// Load keystore
+def keystorePropertiesFile = rootProject.file("keystore.properties")
+def keystoreProperties = new Properties()
+keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+
+android {
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    defaultConfig {
+        applicationId "com.foodiezone"
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode rootProject.ext.versionCode
+        versionName rootProject.ext.versionName
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    signingConfigs {
+        release {
+            storeFile file(keystoreProperties['storeFile'])
+            storePassword keystoreProperties['storePassword']
+            keyAlias keystoreProperties['keyAlias']
+            keyPassword keystoreProperties['keyPassword']
+        }
+    }
+
+    buildTypes {
+        debug {
+            minifyEnabled false
+            applicationIdSuffix ".debug"
+            versionNameSuffix "-debug"
+        }
+
+        release {
+            minifyEnabled true
+            shrinkResources false
+            signingConfig signingConfigs.release
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    buildFeatures {
+        viewBinding true
+    }
+
+    android.applicationVariants.all { variant ->
+        variant.outputs.all {
+            outputFileName = localProperties.getProperty('APP_NAME_FOR_APK')
+            outputFileName += "-v" + android.defaultConfig.versionName
+            if (variant.buildType.name == "release") {
+                outputFileName += ".apk"
+            } else {
+                outputFileName += "-Debug.apk"
+            }
+        }
+    }
+}
+
+dependencies {
+    api project(':domain')
+    api project(':data:repository')
+    api project(':shared')
+
+    api appDependencies.kotlin
+    api appDependencies.androidCore
+
+    api appDependencies.appCompat
+    api appDependencies.material
+    api appDependencies.constraintLayout
+    api appDependencies.swiperefreshlayout
+
+    api appDependencies.viewModel
+    api appDependencies.lifecycleRuntime
+
+    api appDependencies.coroutinesAndroid
+
+    api appDependencies.koinAndroid
+
+    api appDependencies.navFragment
+    api appDependencies.navUi
+
+    api appDependencies.coin
+
+    api appDependencies.shimmer
+
+    api appDependencies.sdp
+    api appDependencies.ssp
+}

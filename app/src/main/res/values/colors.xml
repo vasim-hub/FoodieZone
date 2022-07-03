@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">@color/color_212121</color>
+    <color name="colorPrimaryDark">@color/color_212121</color>
+    <color name="colorStatusBar">#000000</color>
+
+    <color name="color_212121">#212121</color>
+    <color name="color_toolbar">@color/color_212121</color>
+
+    <color name="black_0">#00000000</color>
+    <color name="blablack_82_ck">#000000</color>
+    <color name="black_82">#d2000000</color>
+
+    <color name="color_white">#ffffff</color>
+    <color name="color_brown_grey">#acacac</color>
+    <color name="color_shimmer_grey">#A7A6A6</color>
+    <color name="bg_color_view">#A7A6A6</color>
+</resources>

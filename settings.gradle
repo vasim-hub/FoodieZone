@@ -1,0 +1,8 @@
+include ':app'
+rootProject.name = "FoodieZone"
+include ':domain'
+include ':data'
+include ':data:cache'
+include ':data:network'
+include ':data:repository'
+include ':shared'

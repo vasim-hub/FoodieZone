@@ -1,0 +1,53 @@
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+}
+
+Properties localProperties = new Properties()
+localProperties.load(project.rootProject.file('gradle.properties').newDataInputStream())
+android {
+    compileSdkVersion rootProject.ext.compileSdkVersion
+
+    defaultConfig {
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        debug {
+            buildConfigField("String", "HOST_URL", localProperties.getProperty('DEV_FOODIEZONE_SERVER_URL'))
+        }
+        release {
+            minifyEnabled false
+            buildConfigField("String", "HOST_URL", localProperties.getProperty('PRO_FOODIEZONE_SERVER_URL'))
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+dependencies {
+    api project(":domain")
+    api project(":shared")
+
+    implementation appDependencies.kotlin
+    implementation appDependencies.androidCore
+
+    //Retrofit/Networking
+    api dataDependencies.retrofit
+    api dataDependencies.okhttp
+    api dataDependencies.gsonConvertor
+    api dataDependencies.loggingIntercepter
+
+    implementation appDependencies.koinAndroid
+}
