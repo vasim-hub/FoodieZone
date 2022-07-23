@@ -45,6 +45,7 @@ class FoodieListingViewModel(
         viewModelScope.launch(coroutineDispatcherProvider.IO()) {
             try {
                 val foodiesResponseList = getFoodieListingUserCase.execute(isRequiredToRefreshData)
+
                 _foodieContentListing.value = ResponseHandler.OnSuccessResponse(foodiesResponseList)
 
             } catch (e: Exception) {
